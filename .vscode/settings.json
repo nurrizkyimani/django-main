@@ -1,0 +1,33 @@
+{
+  "sqltools.connections": [
+    {
+      "database": "postgres",
+      "dialect": "PostgreSQL",
+      "name": "localhost",
+      "password": "qwer1234",
+      "port": 5432,
+      "server": "localhost",
+      "username": "postgres"
+    },
+    {
+      "database": "nurrizky",
+      "dialect": "PostgreSQL",
+      "name": "nurrizkytest",
+      "password": "qwer1234",
+      "port": 5432,
+      "server": "localhost",
+      "username": "nurrizky"
+    },
+    {
+      "database": "postgres",
+      "dialect": "PostgreSQL",
+      "name": "real",
+      "password": "qwer1234",
+      "port": 5433,
+      "server": "localhost",
+      "username": "postgres"
+    }
+  ],
+  "python.pythonPath": "/usr/local/opt/python/bin/python3.7"
+  // "python.pythonPath": "/usr/local/bin/python3"
+}
