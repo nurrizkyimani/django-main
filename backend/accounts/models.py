@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
-class UserAccountManager(baseUserManager):
+class UserAccountManager(BaseUserManager):
     def create_user(self, email, name, password=None):
         if(not email):
             raise ValueError('User must have an email address')
@@ -32,3 +32,12 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
 
     object = UserAccountManager()
+
+    def get_full_name(self):
+        return self.name
+
+    def get_short_name(self):
+        return self.name
+
+    def __str__(self):
+        return self.email
