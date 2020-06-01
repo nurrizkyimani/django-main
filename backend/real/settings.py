@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'real.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'real',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'qwer1234',
         'HOST': 'localhost'
