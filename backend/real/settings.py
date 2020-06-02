@@ -25,8 +25,7 @@ SECRET_KEY = '@!+&$$r0u9d#y*g46*&3&)qt5s&d3lo5)gj^72s1%)b^5k%nx='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['content-autofill.googleapis.com', '127.0.0.1', 'localhost' ]
 
 # Application definition
 
@@ -148,7 +147,7 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-FILE_UPLOAD_PERMISSIONS = 0o640
-
+FILE_UPLOAD_PERMISSIONS=0o640
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
+

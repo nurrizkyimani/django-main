@@ -11,7 +11,7 @@ from django.shortcuts import render
 
 
 class SignupView(APIView):
-    permissions_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.AllowAny, )
 
     def post(self, request, format=None):
         data = self.request.data
@@ -20,6 +20,7 @@ class SignupView(APIView):
         email = data['email']
         password = data['password']
         password2 = data['password2']
+        major = data['major']
 
         if password == password2:
             if User.objects.filter(email=email).exists():
@@ -29,7 +30,7 @@ class SignupView(APIView):
                     return Response({'error': 'Password must be at least 6 characters'})
                 else:
                     user = User.objects.create_user(
-                        email=email, password=password, name=name)
+                        email=email, password=password, name=name, major=major)
 
                     user.save()
                     return Response({'success': 'User crearted successfully'})
