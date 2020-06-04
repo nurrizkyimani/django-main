@@ -3,7 +3,7 @@ from .models import Skilltor
 
 
 class SkilltorSerializer(serializers.ModelSerializer):
-  class meta:
+  class Meta:
     model = Skilltor
     fields = '__all__'
     
