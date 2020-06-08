@@ -1,9 +1,9 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework import permissions
-from rest_framework import Response
+from rest_framework.response import Response
 from .models import Note
 from .serializers import NoteListingsSerializer, NoteDetailSerializer
-from rest_framework import APIView
+from rest_framework.views import APIView
 from datetime import datetime, timezone, timedelta
 
 class ListingAllView(ListAPIView):
