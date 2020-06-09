@@ -6,6 +6,7 @@ from .serializers import NoteListingsSerializer, NoteDetailSerializer
 from rest_framework.views import APIView
 from datetime import datetime, timezone, timedelta
 
+
 class ListingAllView(ListAPIView):
   queryset = Note.objects.order_by('-upload_date').filter(is_published=True)
   permission_classes = (permissions.AllowAny,)
