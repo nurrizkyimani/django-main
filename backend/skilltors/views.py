@@ -1,17 +1,10 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import permissions
 from .models import Skilltor
 from .serializers import SkilltorSerializer, SkilltorForm
 from rest_framework.response import Response
 from rest_framework.views import APIView
-# from rest_framework.mixins import mixins
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics
 
-from django.views.generic.edit import UpdateView
-from django.http import Http404
-from rest_framework import status
-from django.views.decorators.csrf import csrf_exempt
 
 class SkilltorListView(ListAPIView):
   permission_classes = (permissions.AllowAny, )
@@ -30,21 +23,16 @@ class TopSkilltorView(ListAPIView):
   pagination_class = None
 
 
+class AddSkilltorPost(APIView):
+  permissions_classes = (permissions.AllowAny,)
 
-class PostSkill(APIView):
-    
-    # def get(self, request):
-    #     skilltors = Skilltor.objects.all()
-    #     serializer = SkilltorSerializer(skilltors, many=True)
-    #     return Response(serializer.data)
+  def post(self, request, format=None):
+    data = self.request.data
 
-    
-    def post(self, request):
-        print('halo')
-        print(request.data)
-        # serializer = SkilltorForm(data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save()
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    try: 
+      skillowner = Skilltor(name=data['name'], phone=data['phone'],
+        email=data['email'], top_skilltor=data['top_skilltor'])
+      skillowner.save()
+      return Response({'succes': 'Message send successfully'})
+    except: 
+      return Response({'error': 'Message failed to send'})
