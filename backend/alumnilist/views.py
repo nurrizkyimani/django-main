@@ -13,12 +13,14 @@ class AlumniCreateView(APIView):
   
   def post(self, request, format=None):
     data = self.request.data
-    print(data)
-   
-    contact = Alumni(name=data['name'], email=data['email'], phone=data['phone'])
-    contact.save()
-      # alumniDir = Alumni(name=data['name'], phone= data['phone'] , email= data['email'])
-      # alumniDir.save()
-    # return Response({'message': 'success'})
 
-    return Response({'message': 'failed but berhasil'})
+    try :
+      print(data)
+      alumniDir = Alumni(name=data['name'], phone= data['phone'] , email= data['email'])
+      alumniDir.save()
+      return Response({'message': 'success'})
+    except Exception as e:
+      print(e)
+      return Response({'message': 'failed but berhasil'})
+
+  

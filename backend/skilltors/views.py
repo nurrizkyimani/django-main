@@ -6,6 +6,21 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
+class AddSkilltorPost(APIView):
+  permission_classes = (permissions.AllowAny, )
+  
+  def post(self, request, format=None):
+    data = self.request.data
+    try :
+      print(data)
+      skillowner = Skilltor(name=data['name'], phone=data['phone'], email=data['email'], top_skilltor=data['top_skilltor'], description=data['description'])
+      skillowner.save()
+      return Response({'message': 'success'})
+    except Exception as e:
+      print(e)
+      return Response({'message': 'failed but berhasil from skilltor'})
+
+
 class SkilltorListView(ListAPIView):
   permission_classes = (permissions.AllowAny, )
   queryset = Skilltor.objects.all()
@@ -23,16 +38,4 @@ class TopSkilltorView(ListAPIView):
   pagination_class = None
 
 
-class AddSkilltorPost(APIView):
-  permissions_classes = (permissions.AllowAny,)
-
-  def post(self, request, format=None):
-    data = self.request.data
-
-    try: 
-      skillowner = Skilltor(name=data['name'], phone=data['phone'],
-        email=data['email'], top_skilltor=data['top_skilltor'])
-      skillowner.save()
-      return Response({'succes': 'Message send successfully'})
-    except: 
-      return Response({'error': 'Message failed to send'})
+  
