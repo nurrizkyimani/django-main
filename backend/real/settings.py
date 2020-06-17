@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'accounts',
-    'skilltors',
     'notelistings',
+    'profils'
 
 ]
 

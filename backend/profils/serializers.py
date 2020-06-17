@@ -1,15 +1,15 @@
 from rest_framework import serializers
-from .models import Skilltor
+from .models import Profils
 
 
-class SkilltorSerializer(serializers.ModelSerializer):
+class ProfilSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Skilltor
+    model = Profils
     fields = '__all__'
 
 class SkilltorForm(serializers.ModelSerializer):
   class Meta:
-    model = Skilltor
+    model = Profils
     fields = ('name')
     
 

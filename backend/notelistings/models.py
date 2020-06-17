@@ -1,5 +1,4 @@
 from django.db import models
-from skilltors.models import Skilltor
 # Create your models here.
 
 
@@ -11,7 +10,7 @@ class Note(models.Model):
     FOR_FREE = 'for free usage'
     FOR_SOLD = 'SOLD'
 
-  skilltors = models.ForeignKey(Skilltor, on_delete=models.DO_NOTHING)
+  # skilltors = models.ForeignKey(Skilltor, on_delete=models.DO_NOTHING)
   is_published = models.BooleanField(default=False)
   slug = models.CharField(max_length=100, unique=True)
   title  = models.CharField(max_length=50)
