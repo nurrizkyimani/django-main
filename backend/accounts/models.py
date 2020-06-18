@@ -18,9 +18,9 @@ class UserAccountManager(BaseUserManager):
 
     def create_superuser(self, email, name, username, password):
       user = self.create_user(email, name, password, username)
-
+      
       user.is_superuser = True
-      user.is_admin = True
+      user.is_staff = True
       user.save()
       return user
 
@@ -37,8 +37,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
     objects = UserAccountManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['name','email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name','username']
 
     def get_full_name(self):
         return self.name
