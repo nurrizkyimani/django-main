@@ -31,10 +31,8 @@ ALLOWED_HOSTS = ['content-autofill.googleapis.com', '127.0.0.1', 'localhost' ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
@@ -53,7 +51,9 @@ INSTALLED_APPS = [
 
     'allauth.socialaccount.providers.google',
 
-    'rest_auth'
+    'rest_auth',
+    'oauth2_provider',
+    
 
 ]
 
@@ -89,6 +89,13 @@ TEMPLATES = [
     },
 ]
 
+
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+
+TEMPLATE_DIRS = (
+    os.path.join(SETTINGS_PATH, 'templates'),
+)
+
 WSGI_APPLICATION = 'real.wsgi.application'
 
 
@@ -108,7 +115,7 @@ DATABASES = {
 AUTHENTICATION_BACKENDS = [
   
     # Needed to login by username in Django admin, regardless of `allauth`
-    # 'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -158,11 +165,16 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
 ]
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -173,6 +185,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 3

@@ -35,5 +35,4 @@ class Profils(models.Model):
   skill = models.CharField(max_length=50, blank=True, choices=skill_choices)
   topics = models.CharField(max_length=50, blank=True, choices= topics_choices)
   
-  def __str__(self):
-    return self.name
+ 

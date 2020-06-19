@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 
 urlpatterns = [
@@ -15,7 +16,8 @@ urlpatterns = [
     # path('api/skilltors/', include('skilltors.urls')),
     path('api/profils/', include('profils.urls')),
     path('api/notelistings/', include('notelistings.urls')),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

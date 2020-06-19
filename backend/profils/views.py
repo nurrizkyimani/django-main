@@ -4,10 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProfilSerializer
 from .models import Profils
-
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 class AddNewProfilPost(APIView):
-  permission_classes = (permissions.AllowAny, )
+  permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
+  
   
   def post(self, request, format=None):
     data = self.request.data
@@ -33,12 +34,14 @@ class AddNewProfilPost(APIView):
 
 
 class ProfilListView(ListAPIView):
-  permission_classes = (permissions.AllowAny, )
+  permission_classes = [permissions.IsAuthenticated, TokenHasScope]
+
   queryset = Profils.objects.all()
   serializer_class = ProfilSerializer
   pagination_class = None
 
 class ProfilView(RetrieveAPIView):
+  permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
   queryset = Profils.objects.all()
   serializer_class = ProfilSerializer
 
