@@ -1,4 +1,15 @@
 # django-main
 django-main
 
-# Rest-APi
+### Summary
+
+> - Project
+>   - Todos Project List Student
+
+> - BACKEND 
+>   - Using Django
+
+
+> - FRONTEND (React Webapp Client)
+>   - Using React Next Js
+
