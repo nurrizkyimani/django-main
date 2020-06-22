@@ -53,6 +53,9 @@ INSTALLED_APPS = [
 
     'rest_auth',
     'oauth2_provider',
+
+    'social_django',
+    'rest_framework_social_oauth2',
     
 
 ]
