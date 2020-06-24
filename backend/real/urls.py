@@ -20,7 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', include('social_django.urls', namespace='social')),
-    path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+    # path('logout/', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
 
     re_path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     # re_path(r'^oauth/', include('social_django.urls', namespace='social')),
