@@ -54,8 +54,9 @@ INSTALLED_APPS = [
     'rest_auth',
     'oauth2_provider',
 
-    'social_django',
+    'social_django', 
     'rest_framework_social_oauth2',
+
     
 
 ]
@@ -72,25 +73,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware', 
 ]
 
 ROOT_URLCONF = 'real.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
@@ -98,6 +84,28 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = (
     os.path.join(SETTINGS_PATH, 'templates'),
 )
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect' # <--
+
+            ]    
+        },
+    },
+]
+
+
 
 WSGI_APPLICATION = 'real.wsgi.application'
 
@@ -116,17 +124,30 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = [
-  
+
+    'rest_framework_social_oauth2.backends.DjangoOAuth2',
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
-  
+
+    # Google OAuth2
+    'social_core.backends.google.GoogleOAuth2',
 ]
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '502810187694-hc0fc1mhu3d709vr3nmg7jntho584muk.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'rWqKgw_OGvh5rFZ5CIPUizAu'
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
 
+LOGIN_URL = '/auth/login/google-oauth2/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -189,6 +210,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+
+        'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 3
