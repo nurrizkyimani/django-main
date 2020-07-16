@@ -14,4 +14,4 @@ A project creating web with react and django as the backend. A website for share
 >   - Using React Next Js
 
 # Problem
-> - Have a problem with authentication, build authentication with social auth but for the frontend of react. So confusing
+ - Have a problem with authentication, build authentication with social auth but for the frontend of react. So confusing
